@@ -6,6 +6,6 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  setupTestFrameworkScriptFile: '<rootDir>/setup-enzyme.ts',
+  setupFilesAfterEnv: ['<rootDir>/setup-enzyme.ts'],
   modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };
