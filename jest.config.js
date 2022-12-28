@@ -7,4 +7,5 @@ module.exports = {
   testEnvironment: 'jsdom',
   snapshotSerializers: ['enzyme-to-json/serializer'],
   setupTestFrameworkScriptFile: '<rootDir>/setup-enzyme.ts',
+  modulePathIgnorePatterns: ['<rootDir>/dist/'],
 };

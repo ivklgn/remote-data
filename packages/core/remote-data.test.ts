@@ -2,6 +2,7 @@ import * as RD from './index';
 
 const rdNotAsked = RD.notAsked();
 const rdLoading = RD.loading();
+const rdReloading = RD.reloading();
 const rdSuccess = RD.success(1);
 const rdFailure = RD.failure(Error('err'));
 
@@ -14,6 +15,10 @@ describe('RemoteData', () => {
     expect(RD.loading()).toEqual(rdLoading);
   });
 
+  test('reloading constructor should return reloading RD', () => {
+    expect(RD.reloading()).toEqual(rdReloading);
+  });
+
   test('success constructor should return success RD', () => {
     expect(RD.success(1)).toEqual(rdSuccess);
   });
@@ -22,17 +27,49 @@ describe('RemoteData', () => {
     expect(RD.failure(new Error('err'))).toEqual(rdFailure);
   });
 
+  test('isNotAsked should truthy if notAsked state', () => {
+    expect(RD.isNotAsked(rdSuccess)).toBeFalsy();
+    expect(RD.isNotAsked(rdFailure)).toBeFalsy();
+    expect(RD.isNotAsked(rdReloading)).toBeFalsy();
+    expect(RD.isNotAsked(rdLoading)).toBeFalsy();
+    expect(RD.isNotAsked(rdNotAsked)).toBeTruthy();
+  });
+
+  test('isNotAsked should truthy if some remotedata notAsked', () => {
+    expect(RD.isNotAsked([rdFailure, rdSuccess])).toBeFalsy();
+    expect(RD.isNotAsked([rdReloading, rdFailure])).toBeFalsy();
+    expect(RD.isNotAsked([rdLoading, rdLoading])).toBeFalsy();
+    expect(RD.isNotAsked([rdNotAsked, rdLoading])).toBeTruthy();
+  });
+
   test('isLoading should truthy if loading state', () => {
     expect(RD.isLoading(rdNotAsked)).toBeFalsy();
     expect(RD.isLoading(rdSuccess)).toBeFalsy();
     expect(RD.isLoading(rdFailure)).toBeFalsy();
+    expect(RD.isLoading(rdReloading)).toBeFalsy();
     expect(RD.isLoading(rdLoading)).toBeTruthy();
   });
 
   test('isLoading should truthy if some remotedata loading', () => {
     expect(RD.isLoading([rdNotAsked, rdLoading])).toBeTruthy();
     expect(RD.isLoading([rdFailure, rdSuccess])).toBeFalsy();
+    expect(RD.isLoading([rdReloading, rdNotAsked])).toBeFalsy();
     expect(RD.isLoading([rdLoading, rdLoading])).toBeTruthy();
+  });
+
+  test('isReloading should truthy if loading state', () => {
+    expect(RD.isReloading(rdNotAsked)).toBeFalsy();
+    expect(RD.isReloading(rdSuccess)).toBeFalsy();
+    expect(RD.isReloading(rdFailure)).toBeFalsy();
+    expect(RD.isReloading(rdLoading)).toBeFalsy();
+
+    expect(RD.isReloading(rdReloading)).toBeTruthy();
+  });
+
+  test('isReloading should truthy if some remotedata loading', () => {
+    expect(RD.isReloading([rdNotAsked, rdReloading])).toBeTruthy();
+    expect(RD.isReloading([rdFailure, rdSuccess])).toBeFalsy();
+    expect(RD.isReloading([rdReloading, rdReloading])).toBeTruthy();
   });
 
   test('isSuccess should truthy if success', () => {
@@ -77,6 +114,7 @@ describe('RemoteData', () => {
     const foldHandlers = {
       notAsked: () => 'no data',
       loading: () => 'loading..',
+      reloading: () => 'reloading..',
       failure: (error: Error) => error.message,
       success: (n: number) => String(10 + n),
     };
@@ -84,6 +122,7 @@ describe('RemoteData', () => {
     expect(RD.fold(rdSuccess, foldHandlers)).toBe('11');
     expect(RD.fold(rdFailure, foldHandlers)).toBe('err');
     expect(RD.fold(rdLoading, foldHandlers)).toBe('loading..');
+    expect(RD.fold(rdReloading, foldHandlers)).toBe('reloading..');
     expect(RD.fold(rdNotAsked, foldHandlers)).toBe('no data');
   });
 
@@ -91,6 +130,7 @@ describe('RemoteData', () => {
     const foldHandlers = {
       notAsked: () => 'no data',
       loading: () => 'loading..',
+      reloading: () => 'reloading..',
       failure: (errors: Error[]) => String(errors.map((err) => err.message)),
       success: (nums: number[]) => String(10 + nums.reduce((acc, n) => acc + n, 0)),
     };
@@ -99,6 +139,7 @@ describe('RemoteData', () => {
     expect(RD.fold([rdSuccess, rdSuccess], foldHandlers)).toBe('12');
     expect(RD.fold([rdFailure, rdFailure], foldHandlers)).toBe('err,err');
     expect(RD.fold([rdLoading, rdLoading], foldHandlers)).toBe('loading..');
+    expect(RD.fold([rdReloading, rdReloading], foldHandlers)).toBe('reloading..');
     expect(RD.fold([rdNotAsked, rdNotAsked], foldHandlers)).toBe('no data');
 
     // priority
@@ -111,5 +152,37 @@ describe('RemoteData', () => {
     expect(RD.fold([rdSuccess, rdFailure], foldHandlers)).toBe('err');
 
     expect(RD.fold([rdSuccess, rdNotAsked], foldHandlers)).toBe('no data');
+
+    expect(RD.fold([rdNotAsked, rdReloading], foldHandlers)).toBe('reloading..');
+  });
+
+  test('should fold apply handlers to each state if accept array of RemoteData', () => {
+    const foldHandlers = {
+      notAsked: () => 'no data',
+      loading: () => 'loading..',
+      reloading: () => 'reloading..',
+      failure: (errors: Error[]) => String(errors.map((err) => err.message)),
+      success: (nums: number[]) => String(10 + nums.reduce((acc, n) => acc + n, 0)),
+    };
+
+    // base
+    expect(RD.fold([rdSuccess, rdSuccess], foldHandlers)).toBe('12');
+    expect(RD.fold([rdFailure, rdFailure], foldHandlers)).toBe('err,err');
+    expect(RD.fold([rdLoading, rdLoading], foldHandlers)).toBe('loading..');
+    expect(RD.fold([rdReloading, rdReloading], foldHandlers)).toBe('reloading..');
+    expect(RD.fold([rdNotAsked, rdNotAsked], foldHandlers)).toBe('no data');
+
+    // priority
+
+    expect(RD.fold([rdNotAsked, rdLoading], foldHandlers)).toBe('loading..');
+    expect(RD.fold([rdSuccess, rdLoading], foldHandlers)).toBe('loading..');
+
+    expect(RD.fold([rdNotAsked, rdFailure], foldHandlers)).toBe('err');
+    expect(RD.fold([rdLoading, rdFailure], foldHandlers)).toBe('err');
+    expect(RD.fold([rdSuccess, rdFailure], foldHandlers)).toBe('err');
+
+    expect(RD.fold([rdSuccess, rdNotAsked], foldHandlers)).toBe('no data');
+
+    expect(RD.fold([rdNotAsked, rdReloading], foldHandlers)).toBe('reloading..');
   });
 });

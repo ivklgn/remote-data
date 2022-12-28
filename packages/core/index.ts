@@ -9,11 +9,15 @@ export type ReturnTypesOfFunctionProps<T> = {
 
 export type RemoteDataNotAsked = { type: 'NOT_ASKED' };
 export type RemoteDataLoading = { type: 'LOADING' };
+export type RemoteDataReloading = {
+  type: 'RELOADING';
+};
 export type RemoteDataFailure<E> = { type: 'FAILURE'; error: E };
 export type RemoteDataSuccess<D = unknown> = { type: 'SUCCESS'; data: D };
 export type RemoteData<E, D> =
   | RemoteDataNotAsked
   | RemoteDataLoading
+  | RemoteDataReloading
   | RemoteDataFailure<E>
   | RemoteDataSuccess<D>;
 
@@ -21,19 +25,35 @@ export type FoldHandlers<E, D, R> = {
   notAsked: () => R;
   success: (data: D) => R;
   loading?: () => R;
+  reloading?: () => R;
   failure?: (error: E) => R;
+};
+
+export type FolderHandlersRequired<E, D, R> = Required<
+  Omit<FoldHandlers<E, D, R>, 'reloading'>
+> & {
+  reloading?: () => R;
 };
 
 export type FoldHandlersA<RDS, R> = {
   notAsked: () => R;
   success: (data: Extract<RDS, { type: 'SUCCESS'; data: unknown }>['data'][]) => R;
   loading?: () => R;
+  reloading?: () => R;
   failure?: (error: Extract<RDS, { type: 'FAILURE'; error: unknown }>['error'][]) => R;
+};
+
+export type FolderHandlersARequired<RDS, R> = Required<
+  Omit<FoldHandlersA<RDS, R>, 'reloading'>
+> & {
+  reloading?: () => R;
 };
 
 export const notAsked = (): RemoteDataNotAsked => ({ type: 'NOT_ASKED' });
 
 export const loading = (): RemoteDataLoading => ({ type: 'LOADING' });
+
+export const reloading = (): RemoteDataReloading => ({ type: 'RELOADING' });
 
 export const success = <D>(data: D): RemoteDataSuccess<D> => ({
   type: 'SUCCESS',
@@ -45,6 +65,20 @@ export const failure = <E>(error: E): RemoteDataFailure<E> => ({
   error,
 });
 
+export function isNotAsked<R extends RemoteData<unknown, unknown>>(
+  remoteData: R,
+): boolean;
+
+export function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
+  remoteData: R,
+): boolean;
+
+export function isNotAsked(remoteData: any): remoteData is RemoteDataNotAsked {
+  return Array.isArray(remoteData)
+    ? remoteData.some((rd) => rd.type === 'NOT_ASKED')
+    : remoteData.type === 'NOT_ASKED';
+}
+
 export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
 
 export function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -55,6 +89,20 @@ export function isLoading(remoteData: any): remoteData is RemoteDataLoading {
   return Array.isArray(remoteData)
     ? remoteData.some((rd) => rd.type === 'LOADING')
     : remoteData.type === 'LOADING';
+}
+
+export function isReloading<R extends RemoteData<unknown, unknown>>(
+  remoteData: R,
+): boolean;
+
+export function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
+  remoteData: R,
+): boolean;
+
+export function isReloading(remoteData: any): remoteData is RemoteDataReloading {
+  return Array.isArray(remoteData)
+    ? remoteData.some((rd) => rd.type === 'RELOADING')
+    : remoteData.type === 'RELOADING';
 }
 
 export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
@@ -117,21 +165,35 @@ export function fold<RDS, R>(
   foldHandlers: FoldHandlersA<RDS, R>,
 ): ReturnTypesOfFunctionProps<R>;
 
-export function fold(remoteData: any, { notAsked, loading, failure, success }: any) {
+export function fold(
+  remoteData: any,
+  { notAsked, loading, failure, success, reloading }: any,
+) {
   if (Array.isArray(remoteData)) {
+    if (failure) {
+      const failedRds = remoteData.filter((rd) => isFailure(rd));
+      if (failedRds.length > 0) {
+        return failure(failedRds.map((rd) => rd.error));
+      }
+    }
+
+    if (loading) {
+      const loadingRds = remoteData.filter((rd) => isLoading(rd));
+
+      if (loadingRds.length > 0) {
+        return loading();
+      }
+    }
+
+    if (reloading) {
+      const reloadingRds = remoteData.filter((rd) => isReloading(rd));
+
+      if (reloadingRds.length > 0) {
+        return reloading();
+      }
+    }
+
     const successRds = remoteData.filter((rd) => isSuccess(rd));
-
-    const failedRds = remoteData.filter((rd) => isFailure(rd));
-
-    const loadingRds = remoteData.filter((rd) => isLoading(rd));
-
-    if (failedRds.length > 0 && failure) {
-      return failure(failedRds.map((rd) => rd.error));
-    }
-
-    if (loadingRds.length > 0 && loading) {
-      return loading();
-    }
 
     if (remoteData.length === successRds.length) {
       return success(successRds.map((rd) => rd.data));
@@ -144,6 +206,10 @@ export function fold(remoteData: any, { notAsked, loading, failure, success }: a
     return loading();
   }
 
+  if (remoteData.type === 'RELOADING' && reloading) {
+    return reloading();
+  }
+
   if (remoteData.type === 'FAILURE' && failure) {
     return failure(remoteData.error);
   }
@@ -153,4 +219,18 @@ export function fold(remoteData: any, { notAsked, loading, failure, success }: a
   }
 
   return notAsked();
+}
+
+export function foldW<E, D, R>(
+  remoteData: RemoteData<E, D>,
+  foldHandlers: FolderHandlersRequired<E, D, R>,
+): ReturnTypesOfFunctionProps<R>;
+
+export function foldW<RDS, R>(
+  remoteData: ArrayTwoOrMore<RDS>,
+  foldHandlers: FolderHandlersARequired<RDS, R>,
+): ReturnTypesOfFunctionProps<R>;
+
+export function foldW(remoteData: any, foldHandlers: any) {
+  return fold(remoteData, foldHandlers);
 }
