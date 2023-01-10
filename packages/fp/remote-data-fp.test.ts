@@ -65,21 +65,4 @@ describe('RemoteData FP', () => {
     expect(RDF.fold(foldHandlers)(rdFailure)).toBe('err');
     expect(RDF.fold(foldHandlers)(rdSuccess)).toBe('11');
   });
-
-  test('foldW is curried and accept foldHandlers in first function', () => {
-    const foldHandlers = {
-      notAsked: () => 'no data',
-      loading: () => 'loading..',
-      reloading: () => 'reloading..',
-      failure: (error: Error) => error.message,
-      success: (n: number) => String(10 + n),
-    };
-
-    expect(typeof RDF.foldW(foldHandlers)).toBe('function');
-    expect(RDF.foldW(foldHandlers)(rdNotAsked)).toBe('no data');
-    expect(RDF.foldW(foldHandlers)(rdLoading)).toBe('loading..');
-    expect(RDF.foldW(foldHandlers)(rdReloading)).toBe('reloading..');
-    expect(RDF.foldW(foldHandlers)(rdFailure)).toBe('err');
-    expect(RDF.foldW(foldHandlers)(rdSuccess)).toBe('11');
-  });
 });

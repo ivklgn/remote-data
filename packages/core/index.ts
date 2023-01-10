@@ -49,26 +49,97 @@ export type FolderHandlersARequired<RDS, R> = Required<
   reloading?: () => R;
 };
 
+/**
+ * Return NOT_ASKED state
+ *
+ * @category Constructors
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.notAsked();
+ */
 export const notAsked = (): RemoteDataNotAsked => ({ type: 'NOT_ASKED' });
 
+/**
+ * Return LOADING state
+ *
+ * @category Constructors
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.loading();
+ */
 export const loading = (): RemoteDataLoading => ({ type: 'LOADING' });
 
+/**
+ * Return RELOADING state
+ *
+ * @category Constructors
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.reloading();
+ */
 export const reloading = (): RemoteDataReloading => ({ type: 'RELOADING' });
 
+/**
+ * Return SUCCESS state with data
+ *
+ * @category Constructors
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.success({ userId: 1000 });
+ */
 export const success = <D>(data: D): RemoteDataSuccess<D> => ({
   type: 'SUCCESS',
   data,
 });
 
+/**
+ * Return FAILURE state with error
+ *
+ * @category Constructors
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.failure(new Error('error'));
+ */
 export const failure = <E>(error: E): RemoteDataFailure<E> => ({
   type: 'FAILURE',
   error,
 });
 
+/**
+ * Return true if remoteData is notAsked, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.notAsked();
+ *   if (RD.isNotAsked(data)) {
+ *   // ...your code
+ *   }
+ */
 export function isNotAsked<R extends RemoteData<unknown, unknown>>(
   remoteData: R,
 ): boolean;
 
+/**
+ * Return true if one of remoteData is notAsked, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data1 = RD.notAsked();
+ *   const data2 = RD.loading();
+ *
+ *   if (RD.isNotAsked([data1, data2])) {
+ *   // ...your code
+ *   }
+ */
 export function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
   remoteData: R,
 ): boolean;
@@ -79,8 +150,34 @@ export function isNotAsked(remoteData: any): remoteData is RemoteDataNotAsked {
     : remoteData.type === 'NOT_ASKED';
 }
 
+/**
+ * Return true if remoteData is loading, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.loading();
+ *   if (RD.isLoading(data)) {
+ *   // ...your code
+ *   }
+ */
 export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
 
+/**
+ * Return true if one of remoteData is loading, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data1 = RD.notAsked();
+ *   const data2 = RD.loading();
+ *
+ *   if (RD.isNotAsked([data1, data2])) {
+ *   // ...your code
+ *   }
+ */
 export function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
   remoteData: R,
 ): boolean;
@@ -91,10 +188,36 @@ export function isLoading(remoteData: any): remoteData is RemoteDataLoading {
     : remoteData.type === 'LOADING';
 }
 
+/**
+ * Return true if remoteData is reloading, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.reloading();
+ *   if (RD.isReloading(data)) {
+ *   // ...your code
+ *   }
+ */
 export function isReloading<R extends RemoteData<unknown, unknown>>(
   remoteData: R,
 ): boolean;
 
+/**
+ * Return true if one of remoteData is reloading, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data1 = RD.notAsked();
+ *   const data2 = RD.reloading();
+ *
+ *   if (RD.reloading([data1, data2])) {
+ *   // ...your code
+ *   }
+ */
 export function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
   remoteData: R,
 ): boolean;
@@ -105,8 +228,34 @@ export function isReloading(remoteData: any): remoteData is RemoteDataReloading 
     : remoteData.type === 'RELOADING';
 }
 
+/**
+ * Return true if remoteData is success, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.success(1);
+ *   if (RD.isSuccess(data)) {
+ *   console.log(data.data); // typesave
+ *   }
+ */
 export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
 
+/**
+ * Return true if ALL of remoteData is success, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data1 = RD.success(1);
+ *   const data2 = RD.success(2);
+ *
+ *   if (RD.isSuccess([data1, data2])) {
+ *   console.log(data1.data, data2.data); // typesave
+ *   }
+ */
 export function isSuccess<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
   remoteData: R,
 ): boolean;
@@ -117,8 +266,34 @@ export function isSuccess(remoteData: any): remoteData is RemoteDataSuccess<unkn
     : remoteData.type === 'SUCCESS';
 }
 
+/**
+ * Return true if remoteData is failure, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data = RD.failure(new Error('some error'));
+ *   if (RD.isFailure(data)) {
+ *   // ...your code
+ *   }
+ */
 export function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
 
+/**
+ * Return true if one of remoteData is failure, else false
+ *
+ * @category Guards
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   const data1 = RD.failure(new Error('some error'));
+ *   const data2 = RD.failure(new Error('some another error'));
+ *
+ *   if (RD.isFailure([data1, data2])) {
+ *   // ...your code
+ *   }
+ */
 export function isFailure<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
   remoteData: R,
 ): boolean;
@@ -129,11 +304,44 @@ export function isFailure(remoteData: any): remoteData is RemoteDataFailure<unkn
     : remoteData.type === 'FAILURE';
 }
 
+/**
+ * Accept remote data and orElse function and if SUCCESS return data, else all orElse
+ *
+ * @category Error handling / accessor
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   // example 1
+ *   const data = RD.notAsked();
+ *   const result = RD.successOrElse(data, () => -1); // -1
+ *
+ *   // example 2
+ *   const data = RD.success(1);
+ *   const result = RD.successOrElse(data, () => -1); // 1
+ */
 export function successOrElse<T extends RemoteData<unknown, unknown>, R>(
   remoteData: T,
   orElse: () => R,
 ): (T extends RemoteDataSuccess<unknown> ? T['data'] : never) | R;
 
+/**
+ * Accept array of remote data and orElse function and if ALL SUCCESS return array of
+ * data, else all orElse
+ *
+ * @category Error handling / accessor
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   // example 1
+ *   const data1 = RD.notAsked();
+ *   const data2 = RD.notAsked();
+ *   const result = RD.successOrElse([data1, data2], () => [0, 0]); // [0, 0]
+ *
+ *   // example 2
+ *   const data1 = RD.success(1);
+ *   const data2 = RD.success(2);
+ *   const [first, second] = RD.successOrElse(data, () => [0, 0]); // [1, 2]
+ */
 export function successOrElse<T extends ArrayTwoOrMore<RemoteData<unknown, unknown>>, R>(
   remoteData: T,
   orElse: () => R,
@@ -155,11 +363,43 @@ export function successOrElse(remoteData: any, orElse: any) {
   return orElse(remoteData);
 }
 
+/**
+ * Accept remote data and object with handlers (state as cb)
+ *
+ * @category Pattern matching
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   // example 1
+ *   const data = RD.notAsked();
+ *   const result = RD.fold(data, { notAsked: () => 'no data', loading: () => 'loading...', success: (data) => `data: ${data}`);
+ */
 export function fold<E, D, R>(
   remoteData: RemoteData<E, D>,
   foldHandlers: FoldHandlers<E, D, R>,
 ): ReturnTypesOfFunctionProps<R>;
 
+/**
+ * Accept array of remote data and object with handler (state as cb)
+ *
+ * @category Pattern matching
+ * @example
+ *   import * RD from '@yac/remote-data';
+ *
+ *   // example 1
+ *   const data1 = RD.notAsked();
+ *   const data2 = RD.notAsked();
+ *
+ *   // return 'no data':
+ *   const result = RD.fold([data1, data2], { notAsked: () => 'no data', loading: () => 'loading...', success: (data) => `data: ${data}`);
+ *
+ *   // example 2
+ *   const data1 = RD.success(1);
+ *   const data2 = RD.success(2);
+ *
+ *   // return 3:
+ *   const result = RD.fold([data1, data2], { notAsked: () => 'no data', loading: () => 'loading...', success: ([a, b]) => a + b);
+ */
 export function fold<RDS, R>(
   remoteData: ArrayTwoOrMore<RDS>,
   foldHandlers: FoldHandlersA<RDS, R>,
@@ -219,18 +459,4 @@ export function fold(
   }
 
   return notAsked();
-}
-
-export function foldW<E, D, R>(
-  remoteData: RemoteData<E, D>,
-  foldHandlers: FolderHandlersRequired<E, D, R>,
-): ReturnTypesOfFunctionProps<R>;
-
-export function foldW<RDS, R>(
-  remoteData: ArrayTwoOrMore<RDS>,
-  foldHandlers: FolderHandlersARequired<RDS, R>,
-): ReturnTypesOfFunctionProps<R>;
-
-export function foldW(remoteData: any, foldHandlers: any) {
-  return fold(remoteData, foldHandlers);
 }
