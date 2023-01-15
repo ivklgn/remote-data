@@ -6,7 +6,7 @@ exports.fold = exports.successOrElse = exports.isFailure = exports.isSuccess = e
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.notAsked();
  */
@@ -17,7 +17,7 @@ exports.notAsked = notAsked;
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.loading();
  */
@@ -28,7 +28,7 @@ exports.loading = loading;
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.reloading();
  */
@@ -39,7 +39,7 @@ exports.reloading = reloading;
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.success({ userId: 1000 });
  */
@@ -53,7 +53,7 @@ exports.success = success;
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure(new Error('error'));
  */

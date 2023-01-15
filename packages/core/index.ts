@@ -54,7 +54,7 @@ export type FolderHandlersARequired<RDS, R> = Required<
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.notAsked();
  */
@@ -65,7 +65,7 @@ export const notAsked = (): RemoteDataNotAsked => ({ type: 'NOT_ASKED' });
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.loading();
  */
@@ -76,7 +76,7 @@ export const loading = (): RemoteDataLoading => ({ type: 'LOADING' });
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.reloading();
  */
@@ -87,7 +87,7 @@ export const reloading = (): RemoteDataReloading => ({ type: 'RELOADING' });
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.success({ userId: 1000 });
  */
@@ -101,7 +101,7 @@ export const success = <D>(data: D): RemoteDataSuccess<D> => ({
  *
  * @category Constructors
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure(new Error('error'));
  */
@@ -115,11 +115,11 @@ export const failure = <E>(error: E): RemoteDataFailure<E> => ({
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.notAsked();
  *   if (RD.isNotAsked(data)) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isNotAsked<R extends RemoteData<unknown, unknown>>(
@@ -131,13 +131,13 @@ export function isNotAsked<R extends RemoteData<unknown, unknown>>(
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data1 = RD.notAsked();
  *   const data2 = RD.loading();
  *
  *   if (RD.isNotAsked([data1, data2])) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -155,11 +155,11 @@ export function isNotAsked(remoteData: any): remoteData is RemoteDataNotAsked {
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.loading();
  *   if (RD.isLoading(data)) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
@@ -169,13 +169,13 @@ export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data1 = RD.notAsked();
  *   const data2 = RD.loading();
  *
  *   if (RD.isNotAsked([data1, data2])) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -193,11 +193,11 @@ export function isLoading(remoteData: any): remoteData is RemoteDataLoading {
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.reloading();
  *   if (RD.isReloading(data)) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isReloading<R extends RemoteData<unknown, unknown>>(
@@ -209,13 +209,13 @@ export function isReloading<R extends RemoteData<unknown, unknown>>(
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data1 = RD.notAsked();
  *   const data2 = RD.reloading();
  *
  *   if (RD.reloading([data1, data2])) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -233,11 +233,11 @@ export function isReloading(remoteData: any): remoteData is RemoteDataReloading 
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.success(1);
  *   if (RD.isSuccess(data)) {
- *   console.log(data.data); // typesave
+ *     console.log(data.data); // typesave
  *   }
  */
 export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
@@ -247,13 +247,13 @@ export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data1 = RD.success(1);
  *   const data2 = RD.success(2);
  *
  *   if (RD.isSuccess([data1, data2])) {
- *   console.log(data1.data, data2.data); // typesave
+ *     console.log(data1.data, data2.data); // typesave
  *   }
  */
 export function isSuccess<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -271,11 +271,11 @@ export function isSuccess(remoteData: any): remoteData is RemoteDataSuccess<unkn
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure(new Error('some error'));
  *   if (RD.isFailure(data)) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
@@ -285,13 +285,13 @@ export function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   const data1 = RD.failure(new Error('some error'));
  *   const data2 = RD.failure(new Error('some another error'));
  *
  *   if (RD.isFailure([data1, data2])) {
- *   // ...your code
+ *     // ...your code
  *   }
  */
 export function isFailure<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
@@ -309,7 +309,7 @@ export function isFailure(remoteData: any): remoteData is RemoteDataFailure<unkn
  *
  * @category Error handling / accessor
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();
@@ -330,7 +330,7 @@ export function successOrElse<T extends RemoteData<unknown, unknown>, R>(
  *
  * @category Error handling / accessor
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data1 = RD.notAsked();
@@ -368,7 +368,7 @@ export function successOrElse(remoteData: any, orElse: any) {
  *
  * @category Pattern matching
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();
@@ -384,7 +384,7 @@ export function fold<E, D, R>(
  *
  * @category Pattern matching
  * @example
- *   import * RD from '@yac/remote-data';
+ *   import { RD } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data1 = RD.notAsked();

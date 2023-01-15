@@ -4,7 +4,7 @@ import { RemoteData, RemoteDataSuccess, isNotAsked as _isNotAsked, isLoading as 
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.notAsked()();
  */
@@ -14,7 +14,7 @@ export declare const notAsked: () => () => import("../core/index").RemoteDataNot
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.loading()();
  */
@@ -24,7 +24,7 @@ export declare const loading: () => () => import("../core/index").RemoteDataLoad
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.reloading()();
  */
@@ -34,7 +34,7 @@ export declare const reloading: () => () => import("../core/index").RemoteDataRe
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.success()({ userId: 1000 });
  */
@@ -44,7 +44,7 @@ export declare const success: () => <D>(data: D) => RemoteDataSuccess<D>;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure()(new Error('error'));
  */
@@ -54,8 +54,8 @@ export declare const failure: () => <E>(error: E) => import("../core/index").Rem
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isNotAsked()(RD.notAsked()); // true
  *   RDF.isNotAsked()(RD.loading()); // false
@@ -68,8 +68,8 @@ export declare const isNotAsked: () => typeof _isNotAsked;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isLoading()(RD.loading()); // true
  *   RDF.isLoading()(RD.notAsked()); // false
@@ -82,8 +82,8 @@ export declare const isLoading: () => typeof _isLoading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isReloading()(RD.reloading()); // true
  *   RDF.isReloading()(RD.notAsked()); // false
@@ -96,8 +96,8 @@ export declare const isReloading: () => typeof _isReloading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isFailure()(RD.failure(new Error('err'))); // true
  *   RDF.isFailure()(RD.notAsked()); // false
@@ -110,8 +110,8 @@ export declare const isFailure: () => typeof _isFailure;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isSuccess()(RD.success(1)); // true
  *   RDF.isSuccess()(RD.notAsked()); // false
@@ -126,8 +126,8 @@ export declare const isSuccess: () => typeof _isSuccess;
  *
  * @category Error handling / accessor
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();
@@ -143,8 +143,8 @@ export declare function successOrElse<R>(orElse: () => R): <T extends RemoteData
  *
  * @category Pattern matching
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();

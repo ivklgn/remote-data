@@ -23,7 +23,7 @@ import {
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.notAsked()();
  */
@@ -34,7 +34,7 @@ export const notAsked = () => _notAsked;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.loading()();
  */
@@ -45,7 +45,7 @@ export const loading = () => _loading;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.reloading()();
  */
@@ -56,7 +56,7 @@ export const reloading = () => _reloading;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.success()({ userId: 1000 });
  */
@@ -67,7 +67,7 @@ export const success = () => _success;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure()(new Error('error'));
  */
@@ -78,8 +78,8 @@ export const failure = () => _failure;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isNotAsked()(RD.notAsked()); // true
  *   RDF.isNotAsked()(RD.loading()); // false
@@ -93,8 +93,8 @@ export const isNotAsked = () => _isNotAsked;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isLoading()(RD.loading()); // true
  *   RDF.isLoading()(RD.notAsked()); // false
@@ -108,8 +108,8 @@ export const isLoading = () => _isLoading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isReloading()(RD.reloading()); // true
  *   RDF.isReloading()(RD.notAsked()); // false
@@ -123,8 +123,8 @@ export const isReloading = () => _isReloading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isFailure()(RD.failure(new Error('err'))); // true
  *   RDF.isFailure()(RD.notAsked()); // false
@@ -138,8 +138,8 @@ export const isFailure = () => _isFailure;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isSuccess()(RD.success(1)); // true
  *   RDF.isSuccess()(RD.notAsked()); // false
@@ -155,8 +155,8 @@ export const isSuccess = () => _isSuccess;
  *
  * @category Error handling / accessor
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();
@@ -190,8 +190,8 @@ export function successOrElse(orElse: any) {
  *
  * @category Pattern matching
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   // example 1
  *   const data = RD.notAsked();

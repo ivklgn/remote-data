@@ -7,7 +7,7 @@ var index_1 = require("../core/index");
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.notAsked()();
  */
@@ -18,7 +18,7 @@ exports.notAsked = notAsked;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.loading()();
  */
@@ -29,7 +29,7 @@ exports.loading = loading;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.reloading()();
  */
@@ -40,7 +40,7 @@ exports.reloading = reloading;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RDF.success()({ userId: 1000 });
  */
@@ -51,7 +51,7 @@ exports.success = success;
  *
  * @category Constructors
  * @example
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   const data = RD.failure()(new Error('error'));
  */
@@ -62,8 +62,8 @@ exports.failure = failure;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isNotAsked()(RD.notAsked()); // true
  *   RDF.isNotAsked()(RD.loading()); // false
@@ -77,8 +77,8 @@ exports.isNotAsked = isNotAsked;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isLoading()(RD.loading()); // true
  *   RDF.isLoading()(RD.notAsked()); // false
@@ -92,8 +92,8 @@ exports.isLoading = isLoading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isReloading()(RD.reloading()); // true
  *   RDF.isReloading()(RD.notAsked()); // false
@@ -107,8 +107,8 @@ exports.isReloading = isReloading;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isFailure()(RD.failure(new Error('err'))); // true
  *   RDF.isFailure()(RD.notAsked()); // false
@@ -122,8 +122,8 @@ exports.isFailure = isFailure;
  *
  * @category Guards
  * @example
- *   import * RD from '@yac/remote-data';
- *   import * RDF from '@yac/remote-data/fp';
+ *   import { RD } from '@young-aviator-club/remote-data';
+ *   import { RDF } from '@young-aviator-club/remote-data';
  *
  *   RDF.isSuccess()(RD.success(1)); // true
  *   RDF.isSuccess()(RD.notAsked()); // false

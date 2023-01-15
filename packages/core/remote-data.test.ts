@@ -143,7 +143,10 @@ describe('RemoteData', () => {
       notAsked: () => 'no data',
       loading: () => 'loading..',
       reloading: () => 'reloading..',
-      failure: (errors: Error[]) => String(errors.map((err) => err.message)),
+      failure: (errors: Error[]) => {
+        console.log(errors.length);
+        return String(errors.map((err) => err.message));
+      },
       success: (nums: number[]) => String(10 + nums.reduce((acc, n) => acc + n, 0)),
     };
 
@@ -162,6 +165,8 @@ describe('RemoteData', () => {
     expect(RD.fold([rdNotAsked, rdFailure], foldHandlers)).toBe('err');
     expect(RD.fold([rdLoading, rdFailure], foldHandlers)).toBe('err');
     expect(RD.fold([rdSuccess, rdFailure], foldHandlers)).toBe('err');
+
+    expect(RD.fold([rdNotAsked, rdFailure], foldHandlers)).toBe('err');
 
     expect(RD.fold([rdSuccess, rdNotAsked], foldHandlers)).toBe('no data');
 

@@ -32,7 +32,11 @@
     "state",
     "data structures",
     "fetch",
-    "types"
+    "types",
+    "react",
+    "redux",
+    "rtk",
+    "immer"
   ],
   "author": "Kalagin Ivan",
   "license": "MIT",
