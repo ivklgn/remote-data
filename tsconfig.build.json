@@ -1,8 +1,7 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
-    "sourceMap": true
+    "allowJs": true
   },
   "include": ["packages/**/*"],
   "exclude": ["node_modules", "packages/**/*.test.ts", "packages/**/*.test.tsx", "dist"]

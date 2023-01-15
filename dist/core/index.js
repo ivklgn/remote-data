@@ -146,4 +146,3 @@ function fold(remoteData, _a) {
     return notAsked();
 }
 exports.fold = fold;
-//# sourceMappingURL=index.js.map

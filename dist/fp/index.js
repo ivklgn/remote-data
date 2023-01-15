@@ -153,4 +153,3 @@ function fold(foldHandlers) {
     return function (remoteData) { return (0, index_1.fold)(remoteData, foldHandlers); };
 }
 exports.fold = fold;
-//# sourceMappingURL=index.js.map

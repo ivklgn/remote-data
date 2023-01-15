@@ -1,6 +1,6 @@
 {
   "name": "@young-aviator-club/remote-data",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
   "main": "dist/index.js",
@@ -20,7 +20,11 @@
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "files": [
-    "/dist",
+    "/dist/core",
+    "/dist/fp",
+    "/dist/react",
+    "/dist/index.d.ts",
+    "/dist/index.js",
     "/package.json"
   ],
   "keywords": [
