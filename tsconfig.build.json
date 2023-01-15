@@ -5,5 +5,5 @@
     "sourceMap": true
   },
   "include": ["packages/**/*"],
-  "exclude": ["node_modules", "packages/**/*.test.ts", "dist"]
+  "exclude": ["node_modules", "packages/**/*.test.ts", "packages/**/*.test.tsx", "dist"]
 }
