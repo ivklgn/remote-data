@@ -1,6 +1,6 @@
 {
-  "name": "@yac/remote-data",
-  "version": "1.0.0",
+  "name": "@young-aviator-club/remote-data",
+  "version": "1.0.1",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
   "main": "dist/index.js",
@@ -17,12 +17,11 @@
     "test-watch": "jest --watch",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
     "clean": "rimraf dist",
-    "publish": "npm publish --access public",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
   },
   "files": [
-    "dist/index.js",
-    "dist/index.d.ts"
+    "/dist",
+    "/package.json"
   ],
   "keywords": [
     "typescript",
