@@ -1,6 +1,6 @@
 {
   "name": "@young-aviator-club/remote-data",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
   "main": "dist/index.js",
