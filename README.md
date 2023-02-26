@@ -20,7 +20,6 @@ npm i @young-aviator-club/remote-data
 | ------------------ | -------------------------------------------------------------------------------------------- |
 | **JS + React**     | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
 | **TS + React**     | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
-| **FP-style usage** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
 | **Reduxt Toolkit** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
 
 More examples coming soon!

@@ -1,9 +1,19 @@
 {
   "name": "@young-aviator-club/remote-data",
-  "version": "2.0.0",
+  "type": "module",
+  "source": "src/index.ts",
+  "version": "2.0.1",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
+  "exports": {
+    "require": "./dist/index.js",
+    "default": "./dist/index.module.js"
+  },
   "main": "dist/index.js",
+  "module": "dist/index.module.js",
+  "unpkg": "dist/index.umd.js",
+  "types": "dist/index.d.ts",
+  "sideEffects": false,
   "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
@@ -11,7 +21,7 @@
   },
   "scripts": {
     "type-check": "tsc --noEmit --p tsconfig.build.json",
-    "build": "npm run clean && tsc --p tsconfig.build.json",
+    "build": "npm run clean && microbundle",
     "test": "jest",
     "test:coverage": "jest --collect-coverage --silent",
     "test:watch": "jest --watch",
