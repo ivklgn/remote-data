@@ -1,4 +1,4 @@
-import { RemoteData, RemoteDataSuccess, isNotAsked as _isNotAsked, isLoading as _isLoading, isReloading as _isReloading, isFailure as _isFailure, isSuccess as _isSuccess, FoldHandlers, ReturnTypesOfFunctionProps } from '../core/index';
+import { RemoteData, RemoteDataSuccess, isNotAsked as _isNotAsked, isLoading as _isLoading, isReloading as _isReloading, isFailure as _isFailure, isSuccess as _isSuccess, FoldHandlers, ReturnTypesOfFunctionProps } from '../index';
 /**
  * Return function that return NOT_ASKED state
  *
@@ -8,7 +8,7 @@ import { RemoteData, RemoteDataSuccess, isNotAsked as _isNotAsked, isLoading as 
  *
  *   const data = RDF.notAsked()();
  */
-export declare const notAsked: () => () => import("../core/index").RemoteDataNotAsked;
+export declare const notAsked: () => () => import("../index").RemoteDataNotAsked;
 /**
  * Return function that return LOADING state
  *
@@ -18,7 +18,7 @@ export declare const notAsked: () => () => import("../core/index").RemoteDataNot
  *
  *   const data = RDF.loading()();
  */
-export declare const loading: () => () => import("../core/index").RemoteDataLoading;
+export declare const loading: () => () => import("../index").RemoteDataLoading;
 /**
  * Return function that return RELOADING state
  *
@@ -28,7 +28,7 @@ export declare const loading: () => () => import("../core/index").RemoteDataLoad
  *
  *   const data = RDF.reloading()();
  */
-export declare const reloading: () => () => import("../core/index").RemoteDataReloading;
+export declare const reloading: () => () => import("../index").RemoteDataReloading;
 /**
  * Return function that return SUCCESS state with data
  *
@@ -48,7 +48,7 @@ export declare const success: () => <D>(data: D) => RemoteDataSuccess<D>;
  *
  *   const data = RD.failure()(new Error('error'));
  */
-export declare const failure: () => <E>(error: E) => import("../core/index").RemoteDataFailure<E>;
+export declare const failure: () => <E>(error: E) => import("../index").RemoteDataFailure<E>;
 /**
  * Return function that return NOT_ASKED guard for one(or)array RemoteData
  *

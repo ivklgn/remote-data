@@ -1,4 +1,4 @@
-import * as RD from '../core/index';
+import * as RD from '../index';
 import * as RDF from './index';
 
 const rdNotAsked = RD.notAsked();

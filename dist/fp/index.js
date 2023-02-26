@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.fold = exports.successOrElse = exports.isSuccess = exports.isFailure = exports.isReloading = exports.isLoading = exports.isNotAsked = exports.failure = exports.success = exports.reloading = exports.loading = exports.notAsked = void 0;
-var index_1 = require("../core/index");
+var index_1 = require("../index");
 /**
  * Return function that return NOT_ASKED state
  *

@@ -5,12 +5,7 @@ Typesafe library for representation loadable state.
 _In web development from project to project, we constantly encounter asynchronous data. The implementation of the loadable falls on the shoulders of the developer and is sometimes redundant: we come up with additional state fields and duplicate the code. RemoteData helps to describe a type-safe data source with the necessary states and provides the minimum required set of functions for processing_
 
 ```ts
-type RemoteData<E, D> = 
-  | NotAsked 
-  | Loading 
-  | Reloading 
-  | Success<D> 
-  | Failure<E>;
+type RemoteData<E, D> = NotAsked | Loading | Reloading | Success<D> | Failure<E>;
 ```
 
 ## Installation
@@ -19,28 +14,21 @@ type RemoteData<E, D> =
 npm i @young-aviator-club/remote-data
 ```
 
+### Examples
+
+| Example            | Link                                                                                         |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| **JS + React**     | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
+| **TS + React**     | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
+| **FP-style usage** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
+| **Reduxt Toolkit** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
+
+More examples coming soon!
+
 ## Usage
 
-### Packages
-
-| Package | Description                                                         | Import                                                   |
-| ------- | ------------------------------------------------------------------- | -------------------------------------------------------- |
-| _core_  | Base RemoteData types and methods for loadable state representation | `import { RD } from "@young-aviator-club/remote-data";`  |
-| _fp_    | Curried core functions                                              | `import { RDF } from "@young-aviator-club/remote-data";` |
-| _react_ | (Only for Typescript) better typing `fold` pattern matching         | `import { RDR } from "@young-aviator-club/remote-data";` |
-
-### API
-
-__Constructors__
-
-- RD.notAsked()
-- RD.loading()
-- RD.reloading()
-- RD.success(data)
-- RD.failure(error)
-
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource: RemoteData<Error, number> = RD.notAsked(); // or another
 
@@ -48,7 +36,9 @@ loadableResource = RD.loading();
 loadableResource = RD.failure(new Error('error'));
 ```
 
-__Guards__
+## API
+
+**Guards**
 
 - RD.isNotAsked(rd)
 - RD.isLoading(rd)
@@ -57,7 +47,7 @@ __Guards__
 - RD.isFailure(rd)
 
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource: RemoteData<Error, number> = RD.notAsked(); // or another
 
@@ -87,8 +77,9 @@ if (RD.isSuccess(loadableResource)) {
 ```
 
 Working with array of RemoteData
+
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource1: RemoteData<Error, number> = RD.notAsked();
 let loadableResource2: RemoteData<Error, number> = RD.notAsked();
@@ -121,12 +112,12 @@ if (RD.isSuccess([loadableResource1, loadableResource2])) {
 }
 ```
 
-__Error handling / accessor__
+**Error handling / accessor**
 
 - RD.successOrElse(rd, orElse)
 
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource: RemoteData<Error, number> = RD.notAsked(); // or another
 
@@ -153,27 +144,24 @@ loadableResource2 = RD.success(2);
 console.log(RD.successOrElse([loadableResource1, loadableResource2], () => -1)); // [1, 2]
 ```
 
-__Pattern matching__
+**Pattern matching**
 
 - RD.fold(rd, handlers)
 
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource: RemoteData<Error, number> = RD.notAsked();
 
 const handleState = (rd: RemoteData<Error, number>) => {
-  return RD.fold(
-    rd,
-    {
-      notAsked: () => "no data",
-      loading: () => "loading...",
-      reloading: () => "reloading...",
-      success: (num) => `result: ${num}`,
-      failure: (err) => `error: ${err.message}`,
-    }
-  );
-}
+  return RD.fold(rd, {
+    notAsked: () => 'no data',
+    loading: () => 'loading...',
+    reloading: () => 'reloading...',
+    success: (num) => `result: ${num}`,
+    failure: (err) => `error: ${err.message}`,
+  });
+};
 
 handleState(loadableResource); // "no data"
 
@@ -183,7 +171,7 @@ handleState(loadableResource); // "loading..."
 loadableResource = RD.reloading();
 handleState(loadableResource); // "reloading..."
 
-loadableResource = RD.failure(new Error("error"));
+loadableResource = RD.failure(new Error('error'));
 handleState(loadableResource); // "error: error"
 
 loadableResource = RD.success(2);
@@ -193,23 +181,20 @@ handleState(loadableResource); // "result: 2"
 with array of RemoteData:
 
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource1: RemoteData<Error, number> = RD.notAsked();
 let loadableResource2: RemoteData<Error, number> = RD.notAsked();
 
 const handleState = (rds: RemoteData<Error, number>[]) => {
-  return RD.fold(
-    rds,
-    {
-      notAsked: () => "no data",
-      loading: () => "loading...",
-      reloading: () => "reloading...",
-      success: ([num1, num2]) => `result: ${num1 + num2}`,
-      failure: ([err1, err2]) => `errors: ${err1.message}, ${err2.message}`,
-    }
-  );
-}
+  return RD.fold(rds, {
+    notAsked: () => 'no data',
+    loading: () => 'loading...',
+    reloading: () => 'reloading...',
+    success: ([num1, num2]) => `result: ${num1 + num2}`,
+    failure: ([err1, err2]) => `errors: ${err1.message}, ${err2.message}`,
+  });
+};
 
 handleState(loadableResource); // "no data"
 
@@ -217,8 +202,8 @@ loadableResource1 = RD.loading();
 loadableResource2 = RD.loading();
 handleState(loadableResource); // "loading..."
 
-loadableResource1 = RD.failure(new Error("error1"));
-loadableResource2 = RD.failure(new Error("error2"));
+loadableResource1 = RD.failure(new Error('error1'));
+loadableResource2 = RD.failure(new Error('error2'));
 handleState(loadableResource); // "errors: error1, error2"
 
 loadableResource1 = RD.success(1);
@@ -226,29 +211,19 @@ loadableResource2 = RD.success(2);
 handleState(loadableResource); // "result: 3"
 ```
 
-
 ### Basic usage
 
 ```ts
-import { RD } from "@young-aviator-club/remote-data";
+import * as RD from '@young-aviator-club/remote-data';
 
 let loadableResource: RD.RemoteData<Error, number> = RD.notAsked();
 
 const loadResource = () => {
-  console.log(loadableResource = RD.loading());
+  console.log((loadableResource = RD.loading()));
   setTimeout(() => {
-    console.log(loadableResource = RD.success(10));
+    console.log((loadableResource = RD.success(10)));
   }, 2000);
-}
+};
 
 console.log(loadableResource);
 ```
-
-### Examples
-
-| Example                    | Link                                                                                          |
-| -------------------------- | --------------------------------------------------------------------------------------------- |
-| __JS + React + useState__  | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5 ) |
-
-
-More examples coming soon!

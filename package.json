@@ -1,6 +1,6 @@
 {
   "name": "@young-aviator-club/remote-data",
-  "version": "1.0.6",
+  "version": "2.0.0",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
   "main": "dist/index.js",
@@ -13,8 +13,8 @@
     "type-check": "tsc --noEmit --p tsconfig.build.json",
     "build": "npm run clean && tsc --p tsconfig.build.json",
     "test": "jest",
-    "test-coverage": "jest --collect-coverage --silent",
-    "test-watch": "jest --watch",
+    "test:coverage": "jest --collect-coverage --silent",
+    "test:watch": "jest --watch",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
     "clean": "rimraf dist",
     "prepublishOnly": "npm run lint && npm run test && npm run build"
@@ -73,5 +73,9 @@
     "rimraf": "3.0.2",
     "ts-jest": "^27.1.5",
     "typescript": "^4.6.3"
+  },
+  "engines": {
+    "npm": "8.19.3",
+    "node": "18.13.0"
   }
 }

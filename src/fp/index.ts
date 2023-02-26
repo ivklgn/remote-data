@@ -1,5 +1,4 @@
 import {
-  ArrayTwoOrMore,
   RemoteData,
   RemoteDataSuccess,
   notAsked as _notAsked,
@@ -16,7 +15,7 @@ import {
   fold as _fold,
   FoldHandlers,
   ReturnTypesOfFunctionProps,
-} from '../core/index';
+} from '../index';
 
 /**
  * Return function that return NOT_ASKED state
