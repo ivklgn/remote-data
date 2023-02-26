@@ -1,6 +1,5 @@
 {
   "name": "@young-aviator-club/remote-data",
-  "type": "module",
   "source": "src/index.ts",
   "version": "2.0.1",
   "private": false,
