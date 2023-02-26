@@ -25,15 +25,21 @@ npm i @young-aviator-club/remote-data
 
 More examples coming soon!
 
-## Usage
+### Basic usage
 
 ```ts
 import * as RD from '@young-aviator-club/remote-data';
 
-let loadableResource: RemoteData<Error, number> = RD.notAsked(); // or another
+let loadableResource: RD.RemoteData<Error, number> = RD.notAsked();
 
-loadableResource = RD.loading();
-loadableResource = RD.failure(new Error('error'));
+const loadResource = () => {
+  console.log((loadableResource = RD.loading()));
+  setTimeout(() => {
+    console.log((loadableResource = RD.success(10)));
+  }, 2000);
+};
+
+console.log(loadableResource);
 ```
 
 ## API
@@ -209,21 +215,4 @@ handleState(loadableResource); // "errors: error1, error2"
 loadableResource1 = RD.success(1);
 loadableResource2 = RD.success(2);
 handleState(loadableResource); // "result: 3"
-```
-
-### Basic usage
-
-```ts
-import * as RD from '@young-aviator-club/remote-data';
-
-let loadableResource: RD.RemoteData<Error, number> = RD.notAsked();
-
-const loadResource = () => {
-  console.log((loadableResource = RD.loading()));
-  setTimeout(() => {
-    console.log((loadableResource = RD.success(10)));
-  }, 2000);
-};
-
-console.log(loadableResource);
 ```
