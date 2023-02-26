@@ -13,7 +13,6 @@
   "unpkg": "dist/index.umd.js",
   "types": "dist/index.d.ts",
   "sideEffects": false,
-  "types": "dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Young-Aviator-club/remote-data"
@@ -74,6 +73,7 @@
     "eslint-plugin-testing-library": "^5.9.1",
     "expect-type": "^0.15.0",
     "jest": "^27.5.1",
+    "microbundle": "^0.15.1",
     "prettier": "^2.6.2",
     "prettier-plugin-jsdoc": "^0.3.38",
     "react": "^18.2.0",
