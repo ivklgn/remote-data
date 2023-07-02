@@ -12,7 +12,7 @@ export type RemoteDataLoading = { type: 'LOADING' };
 export type RemoteDataReloading = {
   type: 'RELOADING';
 };
-export type RemoteDataFailure<E> = { type: 'FAILURE'; error: E };
+export type RemoteDataFailure<E = Error> = { type: 'FAILURE'; error: E };
 export type RemoteDataSuccess<D = unknown> = { type: 'SUCCESS'; data: D };
 export type RemoteData<E, D> =
   | RemoteDataNotAsked
@@ -122,9 +122,9 @@ export const failure = <E>(error: E): RemoteDataFailure<E> => ({
  *     // ...your code
  *   }
  */
-export function isNotAsked<R extends RemoteData<unknown, unknown>>(
-  remoteData: R,
-): boolean;
+export function isNotAsked(
+  remoteData: RemoteData<unknown, unknown>,
+): remoteData is RemoteDataNotAsked;
 
 /**
  * Return true if one of remoteData is notAsked, else false
@@ -140,11 +140,11 @@ export function isNotAsked<R extends RemoteData<unknown, unknown>>(
  *     // ...your code
  *   }
  */
-export function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
-  remoteData: R,
-): boolean;
+export function isNotAsked(
+  remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>,
+): remoteData is ArrayTwoOrMore<RemoteDataNotAsked>;
 
-export function isNotAsked(remoteData: any): remoteData is RemoteDataNotAsked {
+export function isNotAsked(remoteData: any) {
   return Array.isArray(remoteData)
     ? remoteData.some((rd) => rd.type === 'NOT_ASKED')
     : remoteData.type === 'NOT_ASKED';
@@ -162,7 +162,9 @@ export function isNotAsked(remoteData: any): remoteData is RemoteDataNotAsked {
  *     // ...your code
  *   }
  */
-export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export function isLoading(
+  remoteData: RemoteData<unknown, unknown>,
+): remoteData is RemoteDataLoading;
 
 /**
  * Return true if one of remoteData is loading, else false
@@ -178,11 +180,11 @@ export function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *     // ...your code
  *   }
  */
-export function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
-  remoteData: R,
-): boolean;
+export function isLoading(
+  remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>,
+): remoteData is ArrayTwoOrMore<RemoteDataLoading>;
 
-export function isLoading(remoteData: any): remoteData is RemoteDataLoading {
+export function isLoading(remoteData: any) {
   return Array.isArray(remoteData)
     ? remoteData.some((rd) => rd.type === 'LOADING')
     : remoteData.type === 'LOADING';
@@ -200,9 +202,9 @@ export function isLoading(remoteData: any): remoteData is RemoteDataLoading {
  *     // ...your code
  *   }
  */
-export function isReloading<R extends RemoteData<unknown, unknown>>(
-  remoteData: R,
-): boolean;
+export function isReloading(
+  remoteData: RemoteData<unknown, unknown>,
+): remoteData is RemoteDataReloading;
 
 /**
  * Return true if one of remoteData is reloading, else false
@@ -218,11 +220,11 @@ export function isReloading<R extends RemoteData<unknown, unknown>>(
  *     // ...your code
  *   }
  */
-export function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
-  remoteData: R,
-): boolean;
+export function isReloading(
+  remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>,
+): remoteData is ArrayTwoOrMore<RemoteDataReloading>;
 
-export function isReloading(remoteData: any): remoteData is RemoteDataReloading {
+export function isReloading(remoteData: any) {
   return Array.isArray(remoteData)
     ? remoteData.some((rd) => rd.type === 'RELOADING')
     : remoteData.type === 'RELOADING';
@@ -240,7 +242,9 @@ export function isReloading(remoteData: any): remoteData is RemoteDataReloading 
  *     console.log(data.data); // typesave
  *   }
  */
-export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export function isSuccess(
+  remoteData: RemoteData<unknown, unknown>,
+): remoteData is RemoteDataSuccess;
 
 /**
  * Return true if ALL of remoteData is success, else false
@@ -256,11 +260,11 @@ export function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *     console.log(data1.data, data2.data); // typesave
  *   }
  */
-export function isSuccess<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
-  remoteData: R,
-): boolean;
+export function isSuccess(
+  remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>,
+): remoteData is ArrayTwoOrMore<RemoteDataSuccess>;
 
-export function isSuccess(remoteData: any): remoteData is RemoteDataSuccess<unknown> {
+export function isSuccess(remoteData: any) {
   return Array.isArray(remoteData)
     ? remoteData.every((rd) => rd.type === 'SUCCESS')
     : remoteData.type === 'SUCCESS';
@@ -278,7 +282,9 @@ export function isSuccess(remoteData: any): remoteData is RemoteDataSuccess<unkn
  *     // ...your code
  *   }
  */
-export function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export function isFailure(
+  remoteData: RemoteData<unknown, unknown>,
+): remoteData is RemoteDataFailure;
 
 /**
  * Return true if one of remoteData is failure, else false
@@ -294,11 +300,11 @@ export function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R)
  *     // ...your code
  *   }
  */
-export function isFailure<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(
-  remoteData: R,
-): boolean;
+export function isFailure(
+  remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>,
+): remoteData is ArrayTwoOrMore<RemoteDataFailure>;
 
-export function isFailure(remoteData: any): remoteData is RemoteDataFailure<unknown> {
+export function isFailure(remoteData: any) {
   return Array.isArray(remoteData)
     ? remoteData.some((rd) => rd.type === 'FAILURE')
     : remoteData.type === 'FAILURE';
@@ -411,29 +417,25 @@ export function fold(
 ) {
   if (Array.isArray(remoteData)) {
     if (failure) {
-      const failedRds = remoteData.filter((rd) => isFailure(rd));
+      const failedRds = remoteData.filter(
+        isFailure,
+      ) as unknown as ArrayTwoOrMore<RemoteDataFailure>;
       if (failedRds.length > 0) {
         return failure(failedRds.map((rd) => rd.error));
       }
     }
 
-    if (loading) {
-      const loadingRds = remoteData.filter((rd) => isLoading(rd));
-
-      if (loadingRds.length > 0) {
-        return loading();
-      }
+    if (loading && remoteData.some(isLoading)) {
+      return loading();
     }
 
-    if (reloading) {
-      const reloadingRds = remoteData.filter((rd) => isReloading(rd));
-
-      if (reloadingRds.length > 0) {
-        return reloading();
-      }
+    if ((reloading || loading) && remoteData.some(isReloading)) {
+      return (reloading || loading)();
     }
 
-    const successRds = remoteData.filter((rd) => isSuccess(rd));
+    const successRds = remoteData.filter(
+      isSuccess,
+    ) as unknown as ArrayTwoOrMore<RemoteDataSuccess>;
 
     if (remoteData.length === successRds.length) {
       return success(successRds.map((rd) => rd.data));
@@ -442,15 +444,15 @@ export function fold(
     return notAsked();
   }
 
-  if (remoteData.type === 'LOADING' && loading) {
+  if (loading && remoteData.type === 'LOADING') {
     return loading();
   }
 
-  if (remoteData.type === 'RELOADING' && reloading) {
-    return reloading();
+  if ((reloading || loading) && remoteData.type === 'RELOADING') {
+    return (reloading || loading)();
   }
 
-  if (remoteData.type === 'FAILURE' && failure) {
+  if (failure && remoteData.type === 'FAILURE') {
     return failure(remoteData.error);
   }
 
