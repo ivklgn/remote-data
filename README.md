@@ -21,7 +21,7 @@ npm i @young-aviator-club/remote-data
 | **JS + React**                   | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-usestate-72sie5) |
 | **TS + React**                   | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-0tki2w)       |
 | **TS + React + Mobx**            | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-mobx-kwhp57)  |
-| **TS + React + Mobx (extended)** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-mobx-kwhp57)  |
+| **TS + React + Mobx (extended)** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-mobx-extended-gq3r8c)  |
 
 More examples coming soon!
 
