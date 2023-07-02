@@ -14,7 +14,7 @@ export type RemoteDataLoading = {
 export type RemoteDataReloading = {
     type: 'RELOADING';
 };
-export type RemoteDataFailure<E> = {
+export type RemoteDataFailure<E = Error> = {
     type: 'FAILURE';
     error: E;
 };
@@ -111,7 +111,7 @@ export declare const failure: <E>(error: E) => RemoteDataFailure<E>;
  *     // ...your code
  *   }
  */
-export declare function isNotAsked<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export declare function isNotAsked(remoteData: RemoteData<unknown, unknown>): remoteData is RemoteDataNotAsked;
 /**
  * Return true if one of remoteData is notAsked, else false
  *
@@ -126,7 +126,7 @@ export declare function isNotAsked<R extends RemoteData<unknown, unknown>>(remot
  *     // ...your code
  *   }
  */
-export declare function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(remoteData: R): boolean;
+export declare function isNotAsked(remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>): remoteData is ArrayTwoOrMore<RemoteDataNotAsked>;
 /**
  * Return true if remoteData is loading, else false
  *
@@ -139,7 +139,7 @@ export declare function isNotAsked<R extends ArrayTwoOrMore<RemoteData<unknown, 
  *     // ...your code
  *   }
  */
-export declare function isLoading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export declare function isLoading(remoteData: RemoteData<unknown, unknown>): remoteData is RemoteDataLoading;
 /**
  * Return true if one of remoteData is loading, else false
  *
@@ -154,7 +154,7 @@ export declare function isLoading<R extends RemoteData<unknown, unknown>>(remote
  *     // ...your code
  *   }
  */
-export declare function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(remoteData: R): boolean;
+export declare function isLoading(remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>): remoteData is ArrayTwoOrMore<RemoteDataLoading>;
 /**
  * Return true if remoteData is reloading, else false
  *
@@ -167,7 +167,7 @@ export declare function isLoading<R extends ArrayTwoOrMore<RemoteData<unknown, u
  *     // ...your code
  *   }
  */
-export declare function isReloading<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export declare function isReloading(remoteData: RemoteData<unknown, unknown>): remoteData is RemoteDataReloading;
 /**
  * Return true if one of remoteData is reloading, else false
  *
@@ -182,7 +182,7 @@ export declare function isReloading<R extends RemoteData<unknown, unknown>>(remo
  *     // ...your code
  *   }
  */
-export declare function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(remoteData: R): boolean;
+export declare function isReloading(remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>): remoteData is ArrayTwoOrMore<RemoteDataReloading>;
 /**
  * Return true if remoteData is success, else false
  *
@@ -195,7 +195,7 @@ export declare function isReloading<R extends ArrayTwoOrMore<RemoteData<unknown,
  *     console.log(data.data); // typesave
  *   }
  */
-export declare function isSuccess<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export declare function isSuccess(remoteData: RemoteData<unknown, unknown>): remoteData is RemoteDataSuccess;
 /**
  * Return true if ALL of remoteData is success, else false
  *
@@ -210,7 +210,7 @@ export declare function isSuccess<R extends RemoteData<unknown, unknown>>(remote
  *     console.log(data1.data, data2.data); // typesave
  *   }
  */
-export declare function isSuccess<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(remoteData: R): boolean;
+export declare function isSuccess(remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>): remoteData is ArrayTwoOrMore<RemoteDataSuccess>;
 /**
  * Return true if remoteData is failure, else false
  *
@@ -223,7 +223,7 @@ export declare function isSuccess<R extends ArrayTwoOrMore<RemoteData<unknown, u
  *     // ...your code
  *   }
  */
-export declare function isFailure<R extends RemoteData<unknown, unknown>>(remoteData: R): boolean;
+export declare function isFailure(remoteData: RemoteData<unknown, unknown>): remoteData is RemoteDataFailure;
 /**
  * Return true if one of remoteData is failure, else false
  *
@@ -238,7 +238,7 @@ export declare function isFailure<R extends RemoteData<unknown, unknown>>(remote
  *     // ...your code
  *   }
  */
-export declare function isFailure<R extends ArrayTwoOrMore<RemoteData<unknown, unknown>>>(remoteData: R): boolean;
+export declare function isFailure(remoteData: ArrayTwoOrMore<RemoteData<unknown, unknown>>): remoteData is ArrayTwoOrMore<RemoteDataFailure>;
 /**
  * Accept remote data and orElse function and if SUCCESS return data, else all orElse
  *
