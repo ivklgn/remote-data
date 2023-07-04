@@ -8,7 +8,7 @@ _In web development from project to project, we constantly encounter asynchronou
 type RemoteData<E, D> = NotAsked | Loading | Reloading | Success<D> | Failure<E>;
 ```
 
-![alt text](docs/helm.png)
+![alt text](docs/helm-1.png)
 
 ## Installation
 
