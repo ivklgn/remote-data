@@ -8,6 +8,8 @@ _In web development from project to project, we constantly encounter asynchronou
 type RemoteData<E, D> = NotAsked | Loading | Reloading | Success<D> | Failure<E>;
 ```
 
+![alt text](docs/helm.png)
+
 ## Installation
 
 ```
@@ -22,6 +24,7 @@ npm i @young-aviator-club/remote-data
 | **TS + React**                   | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-0tki2w)       |
 | **TS + React + Mobx**            | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-mobx-kwhp57)  |
 | **TS + React + Mobx (extended)** | [Codesandbox](https://codesandbox.io/s/young-aviator-club-remote-data-react-ts-mobx-extended-gq3r8c)  |
+| **JS + React + redux-toolkit** . | Codesandbox: [Before](https://codesandbox.io/s/react-redux-toolkit-application-cbb6s) -> [After](https://codesandbox.io/s/young-aviator-club-remote-data-react-redux-toolkit-qn4lzm) |
 
 More examples coming soon!
 
