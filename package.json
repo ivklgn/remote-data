@@ -1,7 +1,7 @@
 {
   "name": "@young-aviator-club/remote-data",
   "source": "src/index.ts",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "private": false,
   "description": "Typesafe library for representation loadable state.",
   "exports": {
@@ -71,7 +71,6 @@
     "typescript": "^5.1.6"
   },
   "engines": {
-    "npm": "8.19.3",
-    "node": "18.13.0"
+    "npm": ">=8.0.0"
   }
 }
