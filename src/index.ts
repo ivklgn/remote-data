@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export type ArrayTwoOrMore<T> = {
   0: T;
   1: T;
